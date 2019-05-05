@@ -4,7 +4,7 @@ type User {
   email: String!
   password: String!
   avatar: String
-  joimDate: String
+  joinDate: String
   favorites: [Post]
 }
 
@@ -27,9 +27,10 @@ type Message {
 }
 
 type Query {
-  getUser: User
+  getPosts: [Post]
 }
 
 type Mutation {
+  addPost(title: String!, imageUrl: String!, categories: [String]!, description: String!, creatorId: ID!): Post!
   signupUser(username: String!, email: String!, password: String!): User!
 }
