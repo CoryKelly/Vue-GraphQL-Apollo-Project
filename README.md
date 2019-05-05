@@ -3,7 +3,7 @@
 ### Project Details In a nutshell
 An image-sharing social application called YouShare, similar to that of Pinterest or Instagram. Authenticated users of our app will be able to like and unlike, share, comment on, search for, edit, and delete image-related posts.
 
-### Concepts that I will be Getting familiar with: 
+### Concepts that I will be getting familiar with: 
 
 #### FrontEnd 
  - Vue CLI 3
