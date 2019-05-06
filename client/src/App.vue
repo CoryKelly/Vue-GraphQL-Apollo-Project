@@ -1,35 +1,67 @@
 <template>
   <v-app class="primary">
+    <!-- Side Navbar -->
+    <v-navigation-drawer app temporary fixed v-model="sideNav">
+      <v-toolbar color="accent dark flat">
+        <v-toolbar-side-icon @click="toggleSideNav"></v-toolbar-side-icon>
+        <router-link to="/">
+          <span class="pl-3 drawer-font">YOU</span>
+          <span class="font-weight-light">share</span>
+        </router-link>
+      </v-toolbar>
+      <v-divider></v-divider>
+
+      <!--  Side Navbar Links -->
+      <v-list>
+        <v-list-tile v-for="item in sideNavItems" :key="item.title" :to="item.link">
+          <v-list-tile-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            {{ item.title }}
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+
     <v-toolbar fixed dark color="secondary" app>
-      <v-toolbar-side-icon></v-toolbar-side-icon>
-      <v-toolbar-title class="headline ">
+      <v-toolbar-side-icon @click="toggleSideNav"></v-toolbar-side-icon>
+      <v-toolbar-title class="headline hidden-xs-only">
         <router-link to="/">
           <span>YOU</span>
           <span class="font-weight-light">share</span>
         </router-link>
       </v-toolbar-title>
 
+      <!-- Search Bar -->
       <v-spacer></v-spacer>
       <v-text-field color="accent" flex prepend-icon="search" placeholder="Search posts" single-line hide-details></v-text-field>
       <v-spacer></v-spacer>
 
-      <v-toolbar-items>
+      <!-- Links -->
+      <v-toolbar-items class="hidden-xs-only">
         <v-btn flat class="text-UpperCase" v-for="item in horizontalNavItems" :key="item.title" :to="item.link">
-          <v-icon left>{{ item.icon }}</v-icon>
+          <v-icon class="hidden-sm-only" left>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
+    <!-- Main Content -->
     <v-content>
-      <Home/>
+      <v-container class="mt-4">
+        <Home/>
+      </v-container>
     </v-content>
   </v-app>
 </template>
 
-<style>
+<style scoped>
 a {
   text-decoration: none;
+}
+.drawer-font {
+  font-size: 18px;
 }
 </style>
 
@@ -43,6 +75,7 @@ export default {
   },
   data () {
     return {
+      sideNav: false
     }
   },
     computed: {
@@ -52,6 +85,18 @@ export default {
           {icon: 'lock_open', title: 'Sign In', link: '/signin'},
           {icon: 'create', title: 'Sign Up', link: '/signup'}
         ]
+      },
+      sideNavItems(){
+        return [
+          {icon: 'chat', title: 'Posts', link: '/posts'},
+          {icon: 'lock_open', title: 'Sign In', link: '/signin'},
+          {icon: 'create', title: 'Sign Up', link: '/signup'}
+        ]
+      }
+    },
+    methods: {
+      toggleSideNav() {
+        this.sideNav = !this.sideNav
       }
     }
   };
