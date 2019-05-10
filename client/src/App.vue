@@ -1,7 +1,12 @@
 <template>
   <v-app class="primary">
     <!-- Side Navbar -->
-    <v-navigation-drawer app temporary fixed v-model="sideNav">
+    <v-navigation-drawer
+      app
+      temporary
+      fixed
+      v-model="sideNav"
+    >
       <v-toolbar color="accent dark flat">
         <v-toolbar-side-icon @click="toggleSideNav"></v-toolbar-side-icon>
         <router-link to="/">
@@ -13,7 +18,11 @@
 
       <!--  Side Navbar Links -->
       <v-list>
-        <v-list-tile v-for="item in sideNavItems" :key="item.title" :to="item.link">
+        <v-list-tile
+          v-for="item in sideNavItems"
+          :key="item.title"
+          :to="item.link"
+        >
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
@@ -24,7 +33,12 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar fixed dark color="secondary" app>
+    <v-toolbar
+      fixed
+      dark
+      color="secondary"
+      app
+    >
       <v-toolbar-side-icon @click="toggleSideNav"></v-toolbar-side-icon>
       <v-toolbar-title class="headline hidden-xs-only">
         <router-link to="/">
@@ -35,13 +49,29 @@
 
       <!-- Search Bar -->
       <v-spacer></v-spacer>
-      <v-text-field color="accent" flex prepend-icon="search" placeholder="Search posts" single-line hide-details></v-text-field>
+      <v-text-field
+        color="accent"
+        flex
+        prepend-icon="search"
+        placeholder="Search posts"
+        single-line
+        hide-details
+      ></v-text-field>
       <v-spacer></v-spacer>
 
       <!-- Links -->
       <v-toolbar-items class="hidden-xs-only">
-        <v-btn flat class="text-UpperCase" v-for="item in horizontalNavItems" :key="item.title" :to="item.link">
-          <v-icon class="hidden-sm-only" left>{{ item.icon }}</v-icon>
+        <v-btn
+          flat
+          class="text-UpperCase"
+          v-for="item in horizontalNavItems"
+          :key="item.title"
+          :to="item.link"
+        >
+          <v-icon
+            class="hidden-sm-only"
+            left
+          >{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
       </v-toolbar-items>
@@ -50,7 +80,9 @@
     <!-- Main Content -->
     <v-content>
       <v-container class="mt-4">
-        <Home/>
+        <vue-page-transition name="fade">
+          <router-view></router-view>
+        </vue-page-transition>
       </v-container>
     </v-content>
   </v-app>
@@ -60,44 +92,41 @@
 a {
   text-decoration: none;
 }
-.drawer-font {
-  font-size: 18px;
-}
 </style>
 
 <script>
-import Home from './components/Home'
+import Home from "./views/Home";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Home
   },
-  data () {
+  data() {
     return {
       sideNav: false
+    };
+  },
+  computed: {
+    horizontalNavItems() {
+      return [
+        { icon: "chat", title: "Posts", link: "/posts" },
+        { icon: "lock_open", title: "Sign In", link: "/signin" },
+        { icon: "create", title: "Sign Up", link: "/signup" }
+      ];
+    },
+    sideNavItems() {
+      return [
+        { icon: "chat", title: "Posts", link: "/posts" },
+        { icon: "lock_open", title: "Sign In", link: "/signin" },
+        { icon: "create", title: "Sign Up", link: "/signup" }
+      ];
     }
   },
-    computed: {
-      horizontalNavItems(){
-        return [
-          {icon: 'chat', title: 'Posts', link: '/posts'},
-          {icon: 'lock_open', title: 'Sign In', link: '/signin'},
-          {icon: 'create', title: 'Sign Up', link: '/signup'}
-        ]
-      },
-      sideNavItems(){
-        return [
-          {icon: 'chat', title: 'Posts', link: '/posts'},
-          {icon: 'lock_open', title: 'Sign In', link: '/signin'},
-          {icon: 'create', title: 'Sign Up', link: '/signup'}
-        ]
-      }
-    },
-    methods: {
-      toggleSideNav() {
-        this.sideNav = !this.sideNav
-      }
+  methods: {
+    toggleSideNav() {
+      this.sideNav = !this.sideNav;
     }
-  };
+  }
+};
 </script>
