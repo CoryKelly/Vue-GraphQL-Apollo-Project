@@ -1,7 +1,7 @@
 <template>
-  <v-contianer>
+  <v-container>
     <h1>Sign Up</h1>
-  </v-contianer>
+  </v-container>
 </template>
 
 <script>

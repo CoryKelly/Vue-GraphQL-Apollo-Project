@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import { defaultClient as apolloClient } from "./main";
-import { GET_POSTS } from "./dictionary/queries";
+import { GET_POSTS, SIGNIN_USER } from "./dictionary/queries";
 
 Vue.use(Vuex);
 
@@ -36,6 +36,20 @@ export default new Vuex.Store({
         .catch(err => {
           commit("setLoading", false);
           console.error(err);
+        });
+    },
+    signinUser: ({ commit }, payload) => {
+      apolloClient
+        .mutate({
+          mutation: SIGNIN_USER,
+          variables: payload
+        })
+        .then(({ data }) => {
+          localStorage.setItem("token", data.signinUser.token);
+          //console.log(data.signinUser);
+        })
+        .catch(err => {
+          console.log(err);
         });
     }
   },
